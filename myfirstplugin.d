@@ -5,7 +5,7 @@ import dplug.core, dplug.client, dplug.vst;
 mixin(DLLEntryPoint!());
 
 // This create the VST entry point
-mixin(VSTEntryPoint!MSEncode);
+mixin(VSTEntryPoint!MyFirstPlugin);
 
 enum : int
 {
@@ -13,7 +13,7 @@ enum : int
 }
 
 /// Simplest VST plugin you could make.
-final class MSEncode : dplug.client.Client
+final class MyFirstPlugin : dplug.client.Client
 {
 public:
 
@@ -44,8 +44,11 @@ public:
     {
     }
 
+    // challenge: can you make the parameter affect timing, too? What I mean is, when the switch is ON, can you
+    // make the plugin alternate between playing through the left channel alone and then the right channel alone?
     override void processAudio(const(float*)[] inputs, float*[]outputs, int frames, TimeInfo info) nothrow @nogc
     {
+        // note: SQRT1_2 appears frequently here. Google says that "SQRT1_2" is sqrt(1/2). Or, approximately, 0.707
         if (readBoolParamValue(paramOnOff)) // if the switch is on:
         {
             /*
@@ -55,14 +58,22 @@ public:
             */
 
             // makes signal only come out through the RIGHT channel
-            outputs[0][0..frames] = ( (inputs[0][0..frames] - inputs[1][0..frames]) ) * SQRT1_2;
-            outputs[1][0..frames] = ( (inputs[0][0..frames] + inputs[1][0..frames]) ) * SQRT1_2;
+            for (int j = 0; j < frames; j++)
+            {
+                outputs[0][j] = ( (inputs[0][j] - inputs[1][j]) ) * SQRT1_2;
+                outputs[1][j] = ( (inputs[0][j] + inputs[1][j]) ) * SQRT1_2;
+            }
         }
         else // if switch is off
         {
             // signal comes out normally, through BOTH channels
-            outputs[0][0..frames] = inputs[0][0..frames];
-            outputs[1][0..frames] = inputs[1][0..frames];
+            for (int i = 0; i < 2; i++) // 0 == left, 1 == right (or perhaps it's the other way around)
+            {
+                for (int j = 0; j < frames; j++)
+                {
+                    outputs[i][j] = inputs[i][j];
+                }
+            }   
         }
     }
 }
