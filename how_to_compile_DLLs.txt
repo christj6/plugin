@@ -1,0 +1,18 @@
+
+To compile a dll file for your D plugin,
+go inside the main folder 
+
+for example:
+C:\Users\Jack\Documents\programming_stuff\dplug-master\examples\ms-encode
+for the msencode plugin
+
+"Shift + Right click" on some white space somewhere,
+click "Open Powershell window here"
+
+and when that window opens up, type in the following:
+
+dub -b release-nobounds -f --combined
+
+or
+
+dub -b release-nobounds -f --combined -a x86_64 for a 64-bit plugin.

@@ -1,0 +1,34 @@
+{
+    "name": "myfirstplugin",
+
+    "importPaths": [ "." ],
+    "sourcePaths": [ "." ],
+
+    "targetType": "dynamicLibrary",
+
+    "CFBundleIdentifierPrefix": "com.audiocompany",
+
+    "sourceFiles-windows-dmd": [
+        "./module.def"
+    ],
+
+    "lflags-windows-ldc": [
+        "/DEF:module.def",
+        "libcmt.lib",
+        "/nodefaultlib:msvcrt.lib",
+        "/nodefaultlib:vcruntime.lib"
+    ],
+
+    "dependencies":
+    {
+        "dplug:vst": "~>3.0"
+    },
+
+    "configurations": [
+        {
+            "name": "VST",
+            "versions": ["VST"],
+            "targetType": "dynamicLibrary"
+        }
+    ]
+}
