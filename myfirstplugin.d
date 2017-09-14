@@ -57,11 +57,15 @@ public:
             outputs[1][0..frames] = ( (inputs[0][0..frames] - inputs[1][0..frames]) ) * SQRT1_2;
             */
 
-            // makes signal only come out through the RIGHT channel
-            for (int j = 0; j < frames; j++)
+            for (int i = 0; i < 2; i++)
             {
-                outputs[0][j] = ( (inputs[0][j] - inputs[1][j]) ) * SQRT1_2;
-                outputs[1][j] = ( (inputs[0][j] + inputs[1][j]) ) * SQRT1_2;
+                for (int j = 0; j < frames; j++)
+                {
+                    outputs[i][j] = (inputs[0][j] - inputs[1][j]*pow(-1, i+1))*SQRT1_2; // signal only comes through left channel
+                    // outputs[i][j] = (inputs[0][j] - inputs[1][j]*pow(-1, i))*SQRT1_2; // signal only comes through right channel
+                    // outputs[i][j] = (inputs[0][j] - inputs[1][j])*SQRT1_2; // mutes entire signal
+                    // outputs[i][j] = (inputs[0][j] + inputs[1][j])*SQRT1_2; // thought this would double the volume, but there was no difference
+                }
             }
         }
         else // if switch is off
