@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,500" rel="stylesheet">
+<script type="text/javascript">
+function isIE() {
+var ua = window.navigator.userAgent;
+var msie = ua.indexOf("MSIE ");
+return ( (msie > 0) || !!navigator.userAgent.match(/Trident.*rv\:11\./) );
+}
+if(!isIE()) // until real fix is found, do not track IE users
+{
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-61687318-2', 'auto');
+ga('send', 'pageview');
+}
+</script><title>Blog - Audio plugins</title><meta name="description" content="In this blog, we talk about new products, signal processing and D programming." />
+<meta name="keywords" content="free VST plugins, audio plugins, vocal effects, VST, AU" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="Guillaume Piolat" />
+<meta name="categories" content="VST plugins, AU plugins, audio plugins" />
+<link rel="apple-touch-icon-precomposed" href="../favicons/favicon-152.png" />
+<meta name="msapplication-TileColor" content="#000000" />
+<meta name="msapplication-TileImage" content="../favicons/favicon-144.png" />
+<link rel="icon" type="image/x-icon" href="../favicon.ico" />
+<style type="text/css"  media="all" >/* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0}/*! *  Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License) */@font-face{font-family:'FontAwesome';src:url('../fonts/fontawesome-webfont.eot?v=4.3.0');src:url('../fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),url('../fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'),url('../fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'),url('../fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'),url('../fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');font-weight:normal;font-style:normal}.fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transform:translate(0, 0)}.fa-envelope-o:before{content:"\f003"}.fa-comment:before{content:"\f075"}.fa-cog:before{content:"\f013"}.fa-comments:before{content:"\f086"}.fa-book:before{content:"\f02d"}.fa-file-audio-o:before{content:"\f1c7"}.fa-lightbulb-o:before{content:"\f0eb"}.fa-exclamation-triangle:before{content:"\f071"}.fa-download:before{content:"\f019"}.fa-trophy:before{content:"\f091"}.fa-lg{font-size:1.33em;line-height:.75em;vertical-align:-15%}.fa-facebook:before{content:"\f09a"}.fa-twitter:before{content:"\f099"}.fa-home:before{content:"\f015"}.fa-newspaper-o:before{content:"\f1ea"}.fa-arrow-down:before{content:"\f063"}.fa-angle-double-right:before{content:"\f101"}.fa-bug:before{content:"\0f188";}.fa-comments-o:before{content:"\f0e6"}html{box-sizing: border-box;font-family: 'Fira Sans', sans-serif;color: #bbbbbb;}strong, b, .bold {font-weight: 500;}em, i, .italic{font-style: italic;}.small-caps, h1, h2, h3{font-variant: small-caps;letter-spacing: 0.06em;}div { display: block; }span { display: inline; }.inline-block {display: inline-block;}.right-align {text-align: right;}@media (min-width: 921px) {html {font-size: 16px;}}@media (max-width: 920px) {html {font-size: 14px;}}@media (max-width: 860px) {html {font-size: 13px;}}@media (max-width: 800px) {html {font-size: 12px;}}@media (max-width: 700px) {html {font-size: 11px;}}@media (max-width: 600px) {html {font-size: 10px;}}*, *:before, *:after {  box-sizing: inherit;}ul{list-style: circle;padding: 0em 1em;}li{display: list-item;margin-left: 1em;}code { font-family: monospace; }body{background: #1b1414;line-height: 1.33em;font-kerning: normal;}.vert-space8 { display: block; height: 8rem; }.container{margin: 0 auto;max-width: 64rem;display: block;}a{text-decoration: none;}/* Header */header{display: block;text-align: center;width: 100%;border-bottom: 0.2rem solid #112;background: #1b1414;box-shadow: -1rem 1rem 1.5rem 0 rgba(13, 11, 28, 0.2);position: relative;z-index: 100;}#logo{vertical-align: middle;display: inline-block;padding: 0.5rem 0.1rem 0.5rem 0.5rem;width: 9rem;height: 6.5rem;}#brand-name{vertical-align: middle;display: inline-block;padding: 0.5rem 0.5rem 0.5rem 0.1rem;margin-right: 2rem;height: 7rem;width: 10rem;}#top-nav-bar{display: inline-block;vertical-align: bottom;margin: 0 0 -0.15rem 0;}.nav-button{display: inline-block;padding: 1.4rem 2rem 1.4rem 2rem;margin: 0.1rem 1px 0 1px;vertical-align: middle;text-align: center;font-size: 1.2rem;color: #feb;background: #C44c58;background: linear-gradient(to bottom left, #D44c50, #B44c60);box-shadow: -0.1rem 0.5rem 1rem 0 rgba(80, 19, 49, 0.25);border-bottom: 0.3rem solid #8D3557;border-top: 0 solid #603041;border-top-left-radius: 0.3rem;border-top-right-radius: 0.3rem;text-shadow: -0.1rem 0.1rem 0.4rem rgba(33, 19, 49, 0.4);transition: all .05s ease-out;}.nav-button:hover{position: relative;top: 0.05rem;box-shadow: inset 0 0 0.1rem 0 rgba(33, 19, 49, 0.4);border-bottom: 0 solid #8D3557;border-top: 0.3rem solid #603041;color: #ff8;background: #653546;}#social-buttons{font-size: 1.2rem;display: inline-block;margin: 0.8rem;}#social-buttons a{color: #dca;margin: 0.3rem;}#social-buttons a:hover{color: #ff8;text-shadow: 0 0 1rem rgba(255, 255, 128, 1.0);}/* Mailing list form */.newsletter-label{margin-bottom: 0.4em;}.mc-embedded-subscribe-form{display: inline-block;margin: 1.3rem 0.5rem 0.8rem 0.5rem;}.mce-EMAIL{display: inline-block;font-size: 0.8em;padding: 0.6rem 1rem 0.6rem 1rem;background: rgb(255, 230, 200);border: 0;border-radius: 0.3rem 0 0 0.3rem;box-shadow: inset -0.1rem 0.3rem 0.9rem 0 rgba(13, 11, 69, 0.3);}.mc-embedded-subscribe{border: 0;display: inline-block;padding: 0.6rem 1rem 0.6rem 1rem;margin: 0 0 0 -0.15rem;vertical-align: middle;text-align: center;font-size: 0.8rem;color: #feb;border-radius: 0 0.3rem 0.3rem 0;border-bottom: 0.2rem solid #8A4D30;border-top: 0 solid #805045;box-shadow: -0.1rem 0.6rem 0.5rem 0 rgba(13, 11, 42, 0.2);background: #C26E4D;text-shadow: -0.1rem 0.1rem 0.4rem rgba(33, 19, 49, 0.5);}.mc-embedded-subscribe:hover{color: #ff8;background: #845849;box-shadow: inset 0 0 0.1rem 0 rgba(13, 11, 42, 0.2);border-bottom: 0 solid #8A4D30;border-top: 0.2rem solid #805045;}/* Content */#content-wrap{width: 100%;display: block;position: relative;background: #da9;background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiB2ZXJzaW9uPSIxLjEiPg0KPGRlZnM+DQo8ZmlsdGVyIGlkPSJudWFnZXMiPg0KPGZlVHVyYnVsZW5jZSB0eXBlPSJ0dXJidWxlbmNlIiBiYXNlRnJlcXVlbmN5PSIwLjIiIG51bU9jdGF2ZXM9IjEwIiBzdGl0Y2hUaWxlcz0idHJ1ZSIvPg0KPGZlQ29sb3JNYXRyaXggdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAuMDggMCAwIDAgMC4yNiAwIDAuMDggMCAwIDAuMTUgMCAwIDAuMDggMCAwLjE0IDAgMCAwIDAuMCAxIi8+DQo8L2ZpbHRlcj4NCjwvZGVmcz4NCjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiBmaWxsPSIjREE5Ii8+DQo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgZmlsdGVyPSJ1cmwoI251YWdlcykiLz4NCjwvc3ZnPg==);}/* Ribbon */@keyframes animatedBackground{from { background-position: 0 0; }to { background-position: 2rem 0; }}@-webkit-keyframes animatedBackground{from { background-position: 0 0; }to { background-position: 2rem 0; }}#background-ribbon{position: fixed;top: 24rem;width: 100%;left: 0;height: 2rem;background-image: url('../images/signal_pattern.svg');background-repeat: repeat-x;background-size: 2rem, 2rem;z-index: 0;-webkit-animation: animatedBackground 2.5s linear infinite;animation: animatedBackground 2.5s linear infinite;}#background-gears{position: fixed;top: 0;width: 18.5rem;height: 29rem;right: -4rem;z-index: 0;}#content-table{min-height: 100%;display: table;position: relative;z-index: 1;}/* Product menu */#product-menu{display: table-cell;box-shadow: -4rem 4rem 4rem 0 rgba(16, 16, 64, 0.18);position: relative;z-index: 10;background: rgba(16, 16, 64, 0.18);border-right: 1px solid #1b1414;}#products-label{display: block;width: 10rem;color: #FFF4F8;text-align: center;padding: 1rem 1rem;background: #1b1414;font-size: 1.2rem;border-bottom-left-radius: 0.3rem;}.product-button{display: block;width: 10rem;height: 10rem;background-color: rgba(64, 64, 64, 0.35);background-image: url('../images/products-logos.jpg');background-size: 10rem 50rem;background-origin: padding-box;background-clip: padding-box;border-bottom: 0.2rem solid #9F3F6B;border-top: 0px solid #653546;border-bottom-left-radius: 0.5rem;border-top-left-radius: 0.6rem;border-bottom-right-radius: 0.1rem;border-top-right-radius: 0.1rem;color: #FFF4F8;position: relative;text-align: center;box-shadow: 0 0 1rem 0 rgba(20, 10, 49, 0.2);}.product-button:hover{border-top: 0.2rem solid #653546;border-bottom: 0 solid #9F3F6B;box-shadow: inset 0 0 2rem 0 rgba(20, 10, 49, 0.25);color: #FFF488;}a.product-button div{position: absolute;bottom: 0px;width: 100%;padding: 1rem;box-sizing: border-box;font-size: 1.1rem;background: #c04258;background: linear-gradient(to bottom left, #c04250, #a04260);border-bottom-left-radius: 0.5rem;border-bottom-right-radius: 0.1rem;border-top-right-radius: 0.3rem;transition: all .08s ease-out;}a.product-button:hover div{bottom: -0.5rem;background: #653546;}/* Main part */main{background: #ffe8e0;color: #111;display: table-cell;width:100%;border-radius: 0.15rem;box-shadow: 0 0 2rem 0 rgba(50, 50, 70, 0.2);vertical-align: top;text-align: center;}#main-content{margin: 0 auto;text-align: left;}#main-content h1{font-size: 1.2rem;margin: 5rem 0 4rem 0;text-align: center;color: #3C322A;}#main-content h2{font-size: 1.05rem;margin: 2.5rem 10% 1.5rem 10%;padding: 0 1rem;color: #3C322A;}#main-content h3{font-size: 1rem;margin: 2rem 7% 1.1rem 7%;color: #3C322A;}#main-content ul{list-style: disc;}#main-content ul, #main-content ol{max-width: 40rem;margin: 1.2rem auto;padding: 0 1rem;}#main-content li{margin-left: 2rem;}#main-content li:first-child{margin-top: -1rem;}#main-content p{text-align: justify;hyphens: auto;font-size: 1rem;max-width: 40rem;margin: 1.5rem auto;padding: 0 1rem;}#main-content img{display: block;max-width: 90%;margin: 0.6rem auto;}.product-interface{box-shadow: -0.1rem 0.5rem 1.5rem 0 rgba(14, 20, 40, 0.25);}.product-download-link-container{display: block;text-align: center;}.product-download-link, .product-buy-link{display: inline-block;margin: 1rem 0.2rem;text-align: center;font-size: 1.1rem;color: #feb;border-top: 0px solid #753c50;border-radius: 0.2rem;text-shadow: -0.1rem 0.1rem 0.1rem rgba(7, 25, 53, 0.4);box-shadow: -0.1rem 0.1rem 0.7rem 0rem rgba(43, 43, 68, 0.46);}.product-download-link{background: #E14C65;background: linear-gradient(to bottom left, #E14C65, #C13C55);border-bottom: 0.2rem solid #8A3040;padding: 0.9rem 1.8rem;}.product-buy-link{background: #2C2D44;border-bottom: 0.2rem solid #744625;background: linear-gradient(to left bottom, #E69C1B, #C02F2F);padding: 1.1rem 2rem;}.product-download-link:hover, .product-buy-link:hover{position: relative;top: 0.05rem;box-shadow: inset -0.1rem 0.1rem 0.7rem 0 rgba(43, 43, 68, 0.46);border-bottom: 0 solid #8A3060;border-top: 0.2rem solid #753c50;color: #ff8;background: #753c50 !important;}.product-download-subtext {margin: 0 auto;text-align: center;}/* Sample Sounds */.sample-sounds, .warning-unsupported{display: block;box-shadow: -0.1rem 0.1rem 0.03rem 0 rgba(0, 5, 65, 0.1);background: #FFD4DB;border-bottom: 1px solid #ffffff;padding: 2rem 0;}.sample-sound{display: inline-block;margin: 1rem 10%;padding: 0 1rem;width: 100%;border-left: 0.8rem solid #FFBABA;}.sample-sound a, .technical a{color: #206Ca7;}.sample-sound a:hover, .technical a:hover{text-decoration: underline;}.sample-sound-link{padding: 0 0.2rem;margin: 0.2rem;display: inline-block;font-size: 0.9rem;}.sample-sound-description{display: block;padding: 0 0.2rem;margin: 0 0.5rem 0 0;font-size: 0.85rem;color: #837070;text-align: justify;}.sample-sound-controls{display: block;margin: 0.5rem;}.youtube-embed{display: block;background: #685963;text-align: center;padding: 2rem 0 4rem 0;}.youtube-embed iframe{box-shadow: -0.1rem 0.1rem 5rem 0 rgba(0, 0, 0, 0.5);}.customer-quotes{color: #FFDADA;font-size: 0.9rem;box-shadow: -0.1rem 0.1rem 0.2rem 0 rgba(0, 32, 64, 0.1);background: #6E4D4D;display: block;padding: 2rem 0;}.customer-quote-name{display: block;text-align: right;color: #D5775D;}.customer-quotes a{color: #D5775D;}.customer-quotes a:hover{color: #EAE820;text-decoration: underline;}.user-quote-link{padding: 0.2rem;margin: 0.2rem;display: inline;}/* Tips */.technical{font-size: 0.9rem;border-bottom: 1px solid #CEB496;box-shadow: -0.1rem 0.1rem 0.2rem 0 rgba(0, 32, 64, 0.1);padding: 2rem 0;}.product-tips{text-align: justify;list-style-type: disc;}.product-tip{margin: 0.8rem;text-align: justify;}.product-tips-title{font-size: 1.05rem;font-weight: 500;margin: 0.7rem 0 0.7rem 0;color: #3C322A;}/* Get it area */.getitnow{display: block;text-align: center;padding: 2rem 0 8rem 0;font-size: 1rem;border-bottom: 1px solid #633D46;box-shadow: -0.1rem 0.1rem 0.2rem 0 rgba(0, 32, 64, 0.1);background: #6E4D4D;}/* Blog */.blog-entry{display: block;border-left: 4rem solid #594254;padding-bottom: 5rem;margin: 0 0 1rem 0;border-bottom-left-radius: 6rem;border-top-left-radius: 3rem;}.blog-entry:first-child{border-top-left-radius: 0;}.blog-entry-content{text-align: justify;font-size: 1rem;display: block;}.blog-entry-title{font-size: 1.2rem;padding: 1.5rem 4rem;background: #875868;box-shadow: -0.1rem 0.1rem 0.2rem 0 rgba(156, 96, 138, 0.11);color: #F8F3D4;}.blog-entry-title a{color: #fff0e0;}.blog-entry-title a:hover{text-decoration: underline;}#disqus_thread {margin: 0 3rem;}/* Footer */footer{display: block;text-align: center;width: 100%;background: #1b1414;box-shadow: 0 -2rem 2rem 0 rgba(13, 11, 28, 0.15);position: relative;z-index: 100;}.footer-phone {display: inline-block;color: #EF9267;margin: 0.3rem;}#footer-links, #footer-newsletter {display: inline-block;margin: 0px auto 0.7rem auto;}footer div a{color: #EF9267;font-size: 0.95rem;text-align:center;display: inline-block;margin: 0.3rem;padding: 0.3rem;}footer div a:hover{color: #F64D31;background: rgb(0, 0, 0);box-shadow: inset 0 0 2rem 0.7rem #1b1414;text-decoration: underline;}/* News images */.news-image:hover{opacity: 0.9;}#news-graillon img, #news-freebies img, #news-panagement img{display: block;width: 100%;max-width: 100%;box-shadow: -1rem 1rem 1.5rem 0 rgba(13, 11, 28, 0.2);}</style></head><body><header><div class="container"><a href="../index.html"><img id="logo" alt="Logo" src="../images/auburn_logo.svg" /></a><a href="../index.html"><img id="brand-name" alt="Auburn Sounds" src="../images/auburn_logo_text_part.svg" /></a><nav id="top-nav-bar"><a class="nav-button small-caps" href="../blog/index.html"><i class="fa fa-comments-o"></i>&nbsp; Blog</a><a class="nav-button small-caps" href="../press/index.html"><i class="fa fa-newspaper-o"></i>&nbsp; Press</a><a class="nav-button small-caps" href="../contact.html"><i class="fa fa-bug"></i>&nbsp; Support</a></nav></div></header><div id="content-wrap"><div id="background-ribbon"></div><svg xmlns="http://www.w3.org/2000/svg"
+	 xmlns:xlink="http://www.w3.org/1999/xlink"
+	 version="1.1"
+   viewBox="0 0 185 290"
+   id="background-gears">
+  <defs>
+    <g id="gear4">
+    <circle r="55" fill="#765959" />
+    <polygon points="50,0 95,30 70,70 22,44 0,50 -30,95 -70,70 -44,22 -50,0 -95,-30 -70,-70 -22,-44 0,-50 30,-95 70,-70 44,-22 " fill="#af797d"/>
+    <circle cx="-37" cy="62" r="9" fill="#765959" />
+    <circle cx="-62" cy="-37" r="9" fill="#765959" />
+    <circle cx="37" cy="-62" r="9" fill="#765959" />
+    <circle cx="62" cy="37" r="9" fill="#765959" />
+    </g>
+    <g id="gear12">
+      <polygon points="80,0 99,5 96,25 76,24 69,40 83,54 70,70 53,59 40,69 45,89 25,96 16,78 0,80 -5,99 -25,96 -24,76 -40,69 -54,83 -70,70 -59,53 -69,40 -89,45 -96,25 -78,16 -80,0 -99,-5 -96,-25 -76,-24 -69,-40 -83,-54 -70,-70 -53,-59 -40,-69 -45,-89 -25,-96 -16,-78 0,-80 5,-99 25,-96 24,-76 40,-69 54,-83 70,-70 59,-53 69,-40 89,-45 96,-25 78,-16 " fill="#af797d"/>
+    </g>
+    <g id="gear30">
+      <polygon points="89,0 99,2 99,10 89,11 88,18 97,23 95,30 84,29 82,36 90,42 86,50 76,46 72,52 79,60 74,66 65,61 60,66 65,75 58,80 51,74 44,77 47,87 40,91 34,83 27,85 28,95 20,97 16,88 9,89 7,99 0,100 -2,89 -9,89 -12,99 -20,97 -20,87 -27,85 -33,94 -40,91 -38,81 -44,77 -52,85 -58,80 -54,71 -60,66 -68,72 -74,66 -68,58 -72,52 -82,56 -86,50 -79,43 -82,36 -92,38 -95,30 -86,25 -88,18 -98,18 -99,10 -89,7 -89,0 -99,-2 -99,-10 -89,-11 -88,-18 -97,-23 -95,-30 -84,-29 -82,-36 -90,-42 -86,-50 -76,-46 -72,-52 -79,-60 -74,-66 -65,-61 -60,-66 -65,-75 -58,-80 -51,-74 -44,-77 -47,-87 -40,-91 -34,-83 -27,-85 -28,-95 -20,-97 -16,-88 -9,-89 -7,-99 0,-100 2,-89 9,-89 12,-99 20,-97 20,-87 27,-85 33,-94 40,-91 38,-81 44,-77 52,-85 58,-80 54,-71 60,-66 68,-72 74,-66 68,-58 72,-52 82,-56 86,-50 79,-43 82,-36 92,-38 95,-30 86,-25 88,-18 98,-18 99,-10 89,-7 " fill="#af797d"/>
+        <circle r="25" stroke-width="10" stroke="#765959" stroke-dasharray="27,10" fill="transparent" />
+        <circle r="20" fill="#765959"/>
+    </g>
+  </defs>
+  <line x1="63" y1="83" x2="83" y2="270" stroke="#765959" stroke-width="1.5"/>
+  <line x1="103" y1="83" x2="96" y2="270" stroke="#765959" stroke-width="1.5"/>
+  <g transform="translate(83,83) scale(0.7,0.7)">
+    <use id="igear30" xlink:href="#gear30"/>
+  </g>
+
+  <g transform="translate(150,150) scale(0.3,0.3)">
+    <use id="igear12" xlink:href="#gear12"/>
+  </g>
+
+  <g transform="translate(90,270) scale(0.2,0.2)">
+    <use id="igear4" xlink:href="#gear4" />
+  </g>
+
+   <script type="text/javascript"><![CDATA[
+    var fps = 60;
+    var then = Date.now();
+    var interval = 1000/fps;
+    var time = 0;
+    function draw() {
+      if (!!requestAnimationFrame) {
+        requestAnimationFrame(draw);
+      }
+      var now = Date.now();
+      var delta = now - then;
+      then = now;
+      var gear4 = window.document.getElementById("igear4");
+      var gear12 = window.document.getElementById("igear12");
+      var gear30 = window.document.getElementById("igear30");
+      time += (delta / 1000);
+      var angle4 = time * 360 / 10;
+      var angle12 = 3 - time * 360 / 4.8;
+      var angle30 = time * 360 / 12;
+      if (!isNaN(time)) {
+        gear4.setAttributeNS(null, "transform", "rotate(" + angle4 + ")");
+        gear12.setAttributeNS(null, "transform", "rotate(" + angle12 + ")");
+        gear30.setAttributeNS(null, "transform", "rotate(" + angle30 + ")");
+      }
+    }
+    draw();
+    ]]></script>
+</svg>
+<div id="content-table" class="container"><nav id="product-menu"><div id="products-label" class="small-caps"><i class="fa fa-arrow-down"></i> Products</div><a href="../products/Panagement.html" class="product-button small-caps" style="background-position: 0px -500%;"><div>Panagement</div></a><a href="../products/Graillon.html" class="product-button small-caps" style="background-position: 0px -400%;"><div>Graillon</div></a><a href="../products/Psypan.html" class="product-button small-caps" style="background-position: 0px -200%;"><div>Psypan</div></a><a href="../products/Koch.html" class="product-button small-caps" style="background-position: 0px -100%;"><div>Koch</div></a><a href="../products/Distort.html" class="product-button small-caps" style="background-position: 0px -300%;"><div>Distort</div></a></nav><main><div id="main-content"><div class="blog-entry"><div class="blog-entry-title"><a href="../blog/2016-02-08_Making-a-Windows-VST-plugin-with-D.html"><i class="fa fa-comments"></i>&nbsp; February 8, 2016 &mdash; Making a Windows VST plugin with D</a></div><div class="blog-entry-content"><p><em>In this tutorial, you'll learn how to make a VST plugin without UI using the D programming language, for Windows. The Mac OS X version would bring a bit more complexity and will be investigated in another blog post.</em>
+</p>
+<h2> Introducing the <code class="prettyprint">dplug</code> library</h2>
+<p><code class="prettyprint">dplug</code> is a library that wraps plugin formats and manages the UI if needed. It's source code is available on <a href="https://github.com/p0nce/dplug">Github</a>.
+</p>
+<p><img src="images/dplug-logo.png" alt="dplug logo" />
+</p>
+<p>It is most similar to <a href="https://github.com/olilarkin/wdl-ol">IPlug</a> and <a href="http://www.juce.com/">JUCE</a>, two C++ alternatives you should absolutely consider when making plugins. Only a subset of JUCE and IPlug features are supported. If you need VST3 or AAX support, use them instead. AudioUnit support isn't there yet either, but will probably happen this year.
+</p>
+<p><code class="prettyprint">dplug</code> also offers a way to render your plugin UI with a depth map and fancy lighting, but this is out-of-scope for this tutorial. We'll focus on getting something on the table as quickly as possible.
+</p>
+<h2> Setting up the environment</h2>
+<ul>
+<li><p>This tutorial assumes <code class="prettyprint">git</code> is installed and ready-to-run. <a href="https://git-scm.com/">Get it here otherwise.</a>
+</p>
+</li>
+<li><p>For 64-bit support, it is recommended to <strong>install Visual Studio</strong> before the D compiler (for example Visual Studio 2013 Community Edition). This is necessary because the DMD compiler uses the Microsoft's linker when building 64-bit binaries. You can skip this step if you don't want 64-bit support.
+</p>
+</li>
+<li><p><strong>Install DMD:</strong> go to the <a href="https://dlang.org/download.html">D compiler downloads</a>. The easiest way is to download and execute the installer. If you choose so, <a href="http://rainers.github.io/visuald/visuald/StartPage.html">VisualD</a> will also be installed. It allows to edit and debug D code from within Visual Studio. DMD should be in your PATH environment variable afterwards. Type <code class="prettyprint">dmd --version</code> in a command prompt to check for correct setup.
+</p>
+</li>
+<li><p><strong>Install DUB:</strong> go to the <a href="https://code.dlang.org/download">D package manager downloads</a>. You will find releases there. DUB must be in your PATH environment variable. Type <code class="prettyprint">dub help</code> in a command prompt to check for correct installation.
+</p>
+</li>
+</ul>
+<h2> Build the M/S Encoder example</h2>
+<p><em>For the sake of brevity, the effect we'll create is a simple M/S encoder plugin.</em>
+</p>
+<p>You can find the <a href="https://github.com/p0nce/dplug/tree/master/examples/ms-encode">full source code here</a>.
+I recommend you copy this example to start creating your own plugins.
+</p>
+<ul>
+<li><p>Checkout dplug: <code class="prettyprint">git clone https://github.com/p0nce/dplug.git</code>
+</p>
+</li>
+<li><p>Go to the M/S encoder directory: <code class="prettyprint">cd dplug\examples\ms-encode</code>
+</p>
+</li>
+<li><p>Build the plugin by typing: <code class="prettyprint">dub</code>
+</p>
+</li>
+</ul>
+<p><strong>This will create a DLL which can be used in a host as a VST2 plugin.</strong>
+Now let's get into details and see what files were necessary.
+</p>
+<h2> What is the file <code class="prettyprint">module.def</code> for?</h2>
+<p><a href="https://github.com/p0nce/dplug/blob/master/examples/ms-encode/module.def">See its content here.</a>
+</p>
+<p>This file is passed to the linker so that the VST entry point <code class="prettyprint">VSTPluginMain</code> is created. This is the function the host will call when instantiating the plugin.
+</p>
+<h2> What is the file <code class="prettyprint">dub.json</code> for?</h2>
+<p><a href="https://github.com/p0nce/dplug/blob/master/examples/ms-encode/dub.json">See its content here.</a>
+</p>
+<p>DUB needs a project description file to work its magic.
+</p>
+<p><img src="images/dub-logo.png" alt="DUB logo" />
+</p>
+<p>Let's explain all of the JSON keys:
+</p>
+<ul>
+<li><code class="prettyprint">name</code> is necessary for every DUB project. In some cases it is even the only mandatory key.
+</li>
+<li><code class="prettyprint">importPaths</code>: this list of paths is passed to the D compiler with the <code class="prettyprint">-I</code> switch, so that you can <code class="prettyprint">import</code> from them.
+</li>
+<li><code class="prettyprint">sourcePaths</code>: this list of paths is scanned for .d files to pass to the compiler. The D compilation model is similar to the C++ compilation model: there is a distinction between source <em>files</em> and import <em>paths</em>.
+</li>
+<li><code class="prettyprint">targetType</code> must be set to <code class="prettyprint">dynamicLibrary</code>.
+</li>
+<li><code class="prettyprint">sourceFiles-windows</code> will provide <code class="prettyprint">module.def</code> to the linker, when on Windows. Without that exported symbol, the VST host wouldn't be able to load your plugin.
+</li>
+<li><code class="prettyprint">dependencies</code> lists all dependencies needed by this project. Only <code class="prettyprint">dplug:vst</code> is needed here.
+</li>
+<li><code class="prettyprint">CFBundleIdentifierPrefix</code> will only be useful for the Mac version.
+</li>
+</ul>
+<h2> What is the file <code class="prettyprint">msencode.d</code> for?</h2>
+<p><a href="https://github.com/p0nce/dplug/blob/master/examples/ms-encode/msencode.d">See its content here.</a>
+</p>
+<p>This is the main source file for our M/S encoder. Like in JUCE or IPlug, it is a matter of subclassing a plugin client class and overloading some functions.
+</p>
+<ul>
+<li><p>audio processing happens in the <code class="prettyprint">processAudio()</code> overload. This is pretty straightforward to understand, you get a number of input pointers, a number of ouput pointers, and a number of samples. The interesting things happen here!
+</p>
+</li>
+<li><p>The <code class="prettyprint">reset()</code> overload is called at initialization time or whenever the sampling rate changes. Since our M/S encoder has no state, this is left empty.
+</p>
+</li>
+<li><p><code class="prettyprint">buildParams()</code> is where you define plugin parameters. We have only one boolean parameter here, "On/Off". In <code class="prettyprint">processAudio()</code> this parameter is read with <code class="prettyprint">readBoolParamValue(paramOnOff)</code>.
+</p>
+</li>
+<li><p>The <code class="prettyprint">buildLegalIO()</code> overload is there to define which combination of input and output channels are allowed. In this example, stereo to stereo is the only legal combination.
+</p>
+</li>
+<li><p>Finally, the <code class="prettyprint">buildPluginInfo()</code> overload allows to define the plugin identity and some options.
+</p>
+</li>
+</ul>
+<h2> How do I debug it?</h2>
+<p>If you have Visual Studio and <a href="http://rainers.github.io/visuald/visuald/StartPage.html">VisualD</a> installed, you can generate an IDE project using the command: <code class="prettyprint">dub generate visuald</code>.
+This will create a solution able to build your project, and suitable for debugging (much like CMake or premake do).
+</p>
+<h2> Getting an optimized build</h2>
+<p>To build our M/S encoder with optimizations, you can do:
+</p>
+<p><code class="prettyprint">dub -b release-nobounds -f --combined</code>
+</p>
+<p>or
+</p>
+<p><code class="prettyprint">dub -b release-nobounds -f --combined -a x86_64</code> for a 64-bit plugin.
+</p>
+<p>Speed-wise, this plugin should then be about 2500x real-time. Which is expected since it doesn't do much in the first place.
+</p>
+<h2> Why the D programming language?</h2>
+<p>Indeed. Why use D over the obvious alternative: C++?
+</p>
+<p><img src="images/dlang.jpg" alt="dplug logo" />
+</p>
+<p>This is a touchy topic that already has filled entire blog posts. Virtually everyone in real-time audio is using C++ and it's probably still the sanest choice to make.
+</p>
+<p>We are a handful of people using D though. Prior work with VST and D include:
+</p>
+<ul>
+<li><p>vstd: <a href="http://le-son666.com/software/vstd/">http://le-son666.com/software/vstd/</a>
+</p>
+</li>
+<li><p>The Opossum synthesizer: <a href="http://bazaar.launchpad.net/~ace17/opossum/trunk/view/head:/README">http://bazaar.launchpad.net/~ace17/opossum/trunk/view/head:/README</a>
+</p>
+</li>
+</ul>
+<p>I worked with both languages for years and felt qualified enough for the inevitable <a href="http://p0nce.github.io/d-idioms/#How-does-D-improve-on-C++17?">bullet point comparison</a>. The most enabling thing is the D ecosystem and package management through DUB, which makes messing with dependencies basically a solved problem. Development seems to "flow" way more, and I tend to like the end result better in a way that is undoubtedly personal.
+</p>
+<h2> Isn't Garbage Collection at odds with real-time audio?</h2>
+<p>This will be counter-intuitive to many programmers, but the D GC isn't even given a chance to be a problem. The ways to avoid the dreaded GC pauses are <a href="http://p0nce.github.io/d-idioms/#The-impossible-real-time-thread">well known</a> within the community.
+</p>
+<p>In our plugins the GC is used in the UI but not in audio processing. No collection happens after UI initialization. If there was some, the audio thread wouldn't get stopped thanks to being unregistered to the runtime.
+</p>
+<p>The mere presence of a GC doesn't prevent you to do real-time audio, provided you are given the means to control it and avoid it as needed.
+</p>
+<h2> Conclusions</h2>
+<p>Making VST plugins with D isn't terribly involved. I hope you find the process enjoyable and most importantly, easy.
+</p>
+</div></div><div id="disqus_thread"></div><script>var disqus_config = function () {this.page.url = 'https://www.auburnsounds.com/blog/2016-02-08_Making-a-Windows-VST-plugin-with-D.html';this.page.identifier = '/blog/2016-02-08_Making-a-Windows-VST-plugin-with-D';}; (function() {var d = document, s = d.createElement('script');s.src = '//auburnsounds.disqus.com/embed.js';s.setAttribute('data-timestamp', +new Date());(d.head || d.body).appendChild(s);})();</script>
+</div></main></div></div><footer><div class="container"><div id="footer-links"><a href="../about.html">About</a>&mdash;<a href="../faq.html">FAQ</a>&mdash;<a href="../manifesto.html">Manifesto</a>&mdash;<a href="../terms.html">Terms</a></div><div id="footer-newsletter"><form style="font-size: 1rem;" action="http://gamesfrommars.us10.list-manage.com/subscribe/post?u=f811b19d4936b4bf5a28bd278&amp;id=c5acce5591" method="post" class="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate><div style="color: white" class="newsletter-label">Keep me updated on new releases:</div><input type="email" placeholder="Enter your email here" name="EMAIL" class="mce-EMAIL"/>
+<div style="position: absolute; left: -5000px;">
+<input type="text" name="b_f811b19d4936b4bf5a28bd278_c5acce5591" tabindex="-1" value="" />
+</div><input type="submit" value="Subscribe" name="subscribe" class="mc-embedded-subscribe" /></form></div><div id="social-buttons">
+<a href="http://www.facebook.com/AuburnSounds/"><i class="fa fa-facebook fa-lg"></i></a>
+<a href="http://www.twitter.com/auburnsounds"><i class="fa fa-twitter fa-lg"></i></a>
+</div></div></footer></body></html>
